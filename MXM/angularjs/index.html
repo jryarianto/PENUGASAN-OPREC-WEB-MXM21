@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('quote', []);
+        app.controller('quote', function ($scope, $http) {
+            $http({
+                method: 'GET',
+                url: 'http://api.quotable.io/random'    
+                }).then(function success(response) {
+                    $scope.myWelcome = response.data;
+                    $scope.author = response.data.author;
+                    $scope.x = '"'+ response.data.content +'"' + " - " + response.data.author
+                    $scope.content = response.data.content;
+                }, function error(response) {
+            });
+        });
+    </script>
+</head>
+<body>
+    <div ng-app="quote" ng-controller="quote">
+    <p>{{x}}</p>
+    <button ng-click="newQuote()">more random quotes</button>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
+
